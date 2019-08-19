@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02数据劫持</title>
+</head>
+<body>
+  
+</body>
+<script>
+  let Book = { name: 'js权威指南' };
+  console.log(Book.name) // js权威指南
+  let val;
+  Object.defineProperty(Book, 'name', {
+    set (value) {
+      val = value
+    },
+    get () {
+      return val
+    }
+  })
+  Book.name = "HTML5权威指南"; // 实际上调用的set方法
+  console.log(Book.name) // HTML5权威指南 ---- 实际上调用的是get方法
+</script>
+</html>
