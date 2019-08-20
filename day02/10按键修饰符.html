@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模板语法-文本</title>
+  <style>
+  .box {
+    width: 200px;
+    height: 200px;
+    background-color: #f66;  
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+      <input type="text" v-on:keyup="showUserName" v-model="username">
+    <input type="text" v-on:keyup.enter="showUserName" v-model="username">
+    <input type="text" @keyup.13="showUserName" v-model="username">
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  /**
+   * 事件修饰符 .stop  .prevent
+   * 按键修饰符 .enter
+   * 系统修饰键 
+   * */
+  new Vue({
+    el: '#app',
+    data: {
+      username: 'wudaxun'
+    },
+    methods: {
+      showUserName (event) {
+        // if (event.keyCode === 13) {
+          console.log(this.username)
+        // }
+      }
+    }
+  })
+</script>
+</html>

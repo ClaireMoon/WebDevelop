@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模板语法-文本</title>
+</head>
+<body>
+  <div id="app">
+    <button v-on:click="showMsg($event)">vue的简单事件</button>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello vue'
+    },
+    methods: {
+      showMsg (event) { // 如果加括号，没有默认参数。如果要使用事件对象，传参为 $event
+        console.log(event)
+      }
+    }
+  })
+</script>
+</html>

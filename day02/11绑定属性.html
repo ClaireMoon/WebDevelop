@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模板语法-文本</title>
+  <style>
+  .box {
+    width: 200px;
+    height: 200px;
+    background-color: #f66;  
+  }
+  .active {
+    color: #f66;
+  }
+  </style>
+</head>
+<body>
+  <div id="app">
+      <div class="box"></div>
+      <div test="aaa"></div>
+      <div text = "username"></div>
+      <div v-bind:text = "username"></div>
+      <button @click="aindex=0">000</button>
+      <button @click="aindex=1">111</button>
+      <button @click="aindex=2">222</button>
+      <ul>
+        <li v-bind:class="aindex === 0 ? 'active' : ''">0000</li>
+        <li v-bind:class="aindex === 1 ? 'active' : ''">1111</li>
+        <!-- <li v-bind:class="aindex === 2 ? 'active' : ''">2222</li> -->
+        <li :class="aindex === 2 ? 'active' : ''">2222</li>
+      </ul>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  /**
+   * 
+   * */
+  new Vue({
+    el: '#app',
+    data: {
+      username: 'wudaxun',
+      aindex: 0
+    }
+  })
+</script>
+</html>
