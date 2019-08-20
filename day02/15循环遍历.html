@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>循环遍历</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="pushfn">追加一个list</button>
+    <ul>
+      <li v-for="(item, index) of list" :key="index">
+        {{ item }}
+      </li>
+    </ul>
+
+    <ul>
+      <li v-for="item of arr" :key="item.id">
+        {{ item.title }}
+        <ul>
+          <li v-for="(itm, idx) of item.data" :key="idx">
+            {{ itm }}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  // ? vue的v-for是否能够遍历对象？是否能够遍历字符串？
+  new Vue({
+    el: '#app',
+    data: {
+      list: ['a', 'b', 'c', 'd'],
+      arr: [
+        { id: 'item1', title: 'title1', data: ['a1', 'a2', 'a3']},
+        { id: 'item2', title: 'title2', data: ['b1', 'b2', 'b3']},
+        { id: 'item3', title: 'title3', data: ['c1', 'c2', 'c3']}
+      ]
+    },
+    methods: {
+      pushfn () {
+        // 数组更新检测
+        // this.list.push('new')  // 尾部追加一个
+        // this.list.pop() // 尾部删除一个
+        // this.list.shift() // 头部删除一个
+        // this.list.unshift('new') // 头部追加一个
+        this.list.splice(0, 2)
+      }
+    }
+  })
+</script>
+</html>

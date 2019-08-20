@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>class语法之对象语法</title>
+  <style>
+    .active {
+      color: #f66;
+    }
+    .test {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div :class="{ active: isActive}">
+        class语法之对象语法
+        <p>key值为定义好的样式的选择器</p>
+        <p>value值为boolean值</p>
+    </div>
+    <button @click="aindex=0">000</button>
+    <button @click="aindex=1">111</button>
+    <button @click="aindex=2">222</button>
+    <ul>
+      <li v-bind:class="{ active: aindex === 0, test: aindex === 0 }">0000</li>
+      <li v-bind:class="{ active: aindex === 1, test: aindex === 1 }">1111</li>
+      <li :class="{ active: aindex === 2, test: aindex === 2 }">2222</li>
+    </ul>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      isActive: true,
+      aindex: 0
+    }
+  })
+</script>
+</html>

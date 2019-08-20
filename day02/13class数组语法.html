@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>class语法之数组语法</title>
+  <style>
+    .active {
+      color: #f66;
+    }
+    .test {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div :class="[classa, classb]">
+        class语法之数组语法
+        <p>
+          初始化数据添加键值对，key值为样式的名称，value值为定义好的css选择器
+        </p>
+        <p>
+          html结构中使用绑定属性，属性值为[key1, key2....]   
+        </p>
+    </div>
+    
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      classa: 'active',
+      classb: 'test'
+    }
+  })
+</script>
+</html>
