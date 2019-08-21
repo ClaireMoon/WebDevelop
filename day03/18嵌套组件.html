@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件初体验</title>
+  <style>
+    .content{
+      border: 1px solid #f66
+    } 
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- 3、使用组件 -->
+    <my-header></my-header>
+    <my-content></my-content>
+    <my-footer></my-footer>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  // 局部注册组件
+
+  // 1、定义组件
+
+  const myBanner = { // a、定义子组件
+    template: '<div>轮播图</div>'
+  }
+  const myNav = { 
+    template: '<div>导航</div>'
+  }
+  const MyHeader = { 
+    template: `<header>头部</header>`, 
+  }
+  const MyContent = { // 使用组件也是在此组件的内部
+    template: `<div class="content">
+              内容
+              <my-banner></my-banner>
+              <my-nav></my-nav>
+              </div>`,
+    components: { // 因为轮播图在content内容区域内，所以需要在此内部进行注册组件
+      "my-banner": myBanner,
+      "my-nav": myNav
+    }
+  }
+  const MyFooter = { 
+    template: `<footer>底部</footer>`, 
+  }
+
+  new Vue({
+    el: '#app',
+    // 2、局部注册组件
+    components: {
+      'my-header': MyHeader,
+      'my-content': MyContent,
+      'my-footer': MyFooter
+    }
+  })
+</script>
+</html>

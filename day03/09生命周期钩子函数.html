@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>生命周期钩子函数</title>
+</head>
+<body>
+  <div id="app">
+    {{ count }}
+    <button @click="count += 1">点击</button>
+    <button @click="destroyFn">销毁</button>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: { count: 0 },
+    computed: {},
+    watch: {},
+    methods: {
+      destroyFn () {
+        this.$destroy()
+      }
+    },
+    // 数据请求  ---  给孩子起名字 / 教育（胎教、早教）
+    created () {}, // 数据请求
+    mounted () {}, // 数据请求 + 操作DOM(孩子的衣服生下来之后才能穿)
+    updated () {}, // 操作DOM（不能一辈子穿一套衣服呀）
+    destroyed () {} // 不可以操纵DOM
+  })
+</script>
+</html>

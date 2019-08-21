@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件初体验</title>
+</head>
+<body>
+  <div id="app">
+    <my-header></my-header>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  // vue的组件也是vue的一个实例
+  // my-header 为组件的名字
+  // {} 组件的配置
+  // 组件对应的html结构 -- 模板
+  // <my-header></my-header>使用该组件 --- 以标签的形式调用组件
+  Vue.component('my-header', { // 全局注册组件
+    template: `<header>头部</header>`, // 相当于 new Vue中的el
+  })
+  new Vue({
+    el: '#app'
+  })
+</script>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>fetch数据请求</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    mounted () {
+      /**
+      * fetch 可以直接使用，不需要引入任何东西
+      * fetch()  --- 返回的是 promise 对象
+      *  .then(res => res.json()) 将promise 对象转换成json对象，供我们使用
+      *  .then(data => {}) 得到请求的数据，执行后续的业务逻辑
+      */
+      fetch('https://www.daxunxun.com/banner')
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+        })
+    }
+    
+  })
+</script>
+</html>

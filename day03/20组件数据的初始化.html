@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件初体验</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 3、使用组件 -->
+    <my-header></my-header>
+  </div>
+</body>
+<template id="header">
+  <header>
+    这里是头部 --- {{ tip }}
+  </header>
+</template>
+<script src="vue.js"></script>
+<script>
+  // 局部注册组件
+
+  // 1、定义组件
+  const MyHeader = { 
+    template: '#header',
+    data () { // 组件数据初始化为一个data函数，返回了一个对象
+      return {
+        tip: '这里是一个组件'
+      }
+    }
+
+  }
+
+  new Vue({
+    el: '#app',
+    // 2、局部注册组件
+    components: {
+      'my-header': MyHeader
+    }
+  })
+</script>
+</html>
