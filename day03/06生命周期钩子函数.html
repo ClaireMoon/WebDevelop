@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>生命周期钩子函数</title>
+</head>
+<body>
+  <div id="app">
+    {{ count }}
+    <button @click="count += 1">点击</button>
+    <button @click="destroyFn">销毁</button>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: { count: 0 },
+    computed: {},
+    watch: {},
+    methods: {
+      destroyFn () {
+        this.$destroy()
+      }
+    },
+    beforeCreate () { console.log('准备怀孕') },
+    created () { console.log('怀上了**********') },
+    beforeMount () { console.log('马上生了') },
+    mounted () { console.log('生下来了*******************************')},
+    beforeUpdate () { console.log('改变前') },
+    updated () { console.log('改变后********') },
+    beforeDestroy () { console.log('回光返照中') },
+    destroyed () { console.log('game over****') }
+  })
+</script>
+</html>

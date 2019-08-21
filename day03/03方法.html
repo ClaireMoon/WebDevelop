@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>方法</title>
+</head>
+<body>
+  <div id="app">
+    {{ msg }} ----- {{ reverseMsg() }} -- {{ reverseMsg() }}
+    <div>
+      <input type="tel" v-model="tel" @input="changeTip"> {{ telTip }}
+    </div>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello message',
+      tel: '',
+      telTip: ''
+    },
+    methods: { // 方法
+      reverseMsg () { 
+        console.log('methods')
+        return this.msg.split('').reverse().join('')
+      },
+      changeTip () {
+        console.log('111111111')
+        if (this.tel === '') {
+          this.telTip =  '不能为空'
+        } else if (this.tel.length !== 11) {
+          this.telTip = '格式错误'
+        } else {
+          this.telTip = 'ok'
+        }
+      }
+    }
+  })
+</script>
+</html>

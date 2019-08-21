@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性</title>
+</head>
+<body>
+  <div id="app">
+    {{ msg }} ----- {{ reverseMsg }} ---- {{ reverseMsg }} ---- {{ reverseMsg }}---- {{ reverseMsg }}
+    <div>
+      <input type="tel" v-model="tel" > {{ telTip }}
+    </div>
+  </div>
+</body>
+<script src="vue.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      msg: 'hello message',
+      tel: ''
+    },
+    computed: { // 计算属性
+      reverseMsg () { // 函数----有返回值   ---- 就和data中值一样用
+        console.log('computed')
+        return this.msg.split('').reverse().join('')
+      },
+      telTip () {
+        if (this.tel === '') {
+          return '不能为空'
+        } else if (this.tel.length !== 11) {
+          return '格式错误'
+        } else {
+          return 'ok'
+        }
+      }
+    }
+  })
+</script>
+</html>
