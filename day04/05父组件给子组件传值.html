@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父子组件</title>
+</head>
+<body>
+  <div id="app">
+    <my-content test = "测试" :count="100" :flag="true" :tip="tip"/>
+  </div>
+</body>
+<template id="content">
+  <div>
+    我这里是内容区域 --- {{ test }} -- {{ count }} --- {{ flag }} --- {{ tip }}
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+  // 组件的名称不能和模板的id同名
+  /**
+   * 父组件在调用子组件的地方  <my-content />
+   * 添加一个自定义的属性      <my-content test = "测试"/>
+   * 属性的值就是你要传递给子组件的值             "测试"
+   *    如果属性的值是number类型，boolean类型，或者是变量，需要使用到绑定属性
+   *    <my-content test = "测试" :count="100" :flag="true" :tip="tip"/>
+   * 在子组件定义的地方       const Content = {}
+   * 给他添加一个选项 props   const Content = { props: }
+   * props的值可以为数组以及对象
+   * 如果是数组, 元素则为父组件中自定义的属性名     
+   *    ['test', 'count', 'flag', 'tip']
+   * 在子组件中就可以通过 你自定义的属性名 得到父组件传递过来的数据
+   *      如果是对象，对象的形式有两种写法
+   *        写法一：验证传递数据的有效性  ----  可能父子组件不是一个人写的，如果数据类型不对，会报出警告，可以及时调整
+   *          props: {
+                test: String,
+                count: Number,
+                flag: Boolean,
+                tip: String
+              }
+   * */
+  const Content = {
+    template: '#content',
+    // props: ['test', 'count', 'flag', 'tip']
+    props: {
+      test: String,
+      count: Number,
+      flag: Boolean,
+      tip: String
+    }
+  }
+
+  new Vue({
+    el: '#app',
+    data: {
+      tip: '提示'
+    },
+    components: {
+      'my-content': Content
+    }
+  })
+</script>
+</html>

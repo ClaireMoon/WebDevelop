@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父子组件</title>
+</head>
+<body>
+  <div id="app">
+    <my-content @myevent="getData"/>
+  </div>
+</body>
+<template id="content">
+  <div>
+    我这里是内容区域
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+  /**
+   * 父组件调用子组件的地方，给他绑定一个自定义的事件, 事件不要加（）
+   *      <my-content @myevent="getData"/>
+   * 在父组件选项methods中实现此事件，默认参数为你将从子组件得到的值
+   *    methods: {
+          getData (val) { // val为从子组件中获取到的值
+            console.log(val)
+          }
+        },
+      
+      在子组件中，可以是生命周期钩子函数，也可以是组件自己的事件 去 触发 父组件中的自定义事件
+          this.$emit('myevent', 10000)
+   **/
+  const Content = {
+    template: '#content',
+    mounted () {
+      this.$emit('myevent', 10000)
+    }
+  }
+
+  new Vue({
+    el: '#app',
+    data: {},
+    methods: {
+      getData (val) { // val为从子组件中获取到的值
+        console.log(val)
+      }
+    },
+    components: {
+      'my-content': Content
+    }
+  })
+</script>
+</html>

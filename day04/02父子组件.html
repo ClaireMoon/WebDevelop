@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>父子组件</title>
+</head>
+<body>
+  <div id="app">
+    <my-content />
+  </div>
+</body>
+<template id="content">
+  <div>
+    我这里是内容区域
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+  const Content = {
+    template: '#content'
+  }
+
+  new Vue({
+    el: '#app',
+    data: {},
+    components: {
+      'my-content': Content
+    }
+  })
+</script>
+</html>
