@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父子组件传值</title>
+</head>
+<body>
+  <div id="app">
+    <my-list></my-list>
+    <my-count></my-count>
+  </div>
+</body>
+<template id="list">
+  <ul>
+    <li>111<button @click="add">+1</button></li>
+    <li>222<button @click="add">+1</button></li>
+    <li>333<button @click="add">+1</button></li>
+    <li>444<button @click="add">+1</button></li>
+    <li>555<button @click="add">+1</button></li>
+  </ul>
+</template>
+<template id="count">
+  <div>
+    总量是：{{ num }}
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+  /**
+   *  非父子组件传值 ---- 兄弟组件传值                   （邮差与信的故事）
+   *  ------------------ 中央事件总线传值  1. const bus = new Vue()
+   * 
+   *  先要确保 收信 的那个人是存在的
+   *  然后写信的人 写信 给邮差
+   *  邮差给送
+   * 
+   *  // 此处一定要注意this指向，可以使用 => 
+   *  2.在接收端通过 bus.$on('收信信号'， function (val) {
+   * 
+   *  })
+   * 
+   *  3.在发送端通过 bus.$emit('收信信号', val)
+   * */
+const bus = new Vue()
+
+const List = {
+  template: '#list',
+  methods: {
+    add () {
+      bus.$emit('count-event', 1)
+    }
+  }
+}
+const Count = {
+  template: '#count',
+  data () {
+    return {
+      num: 0
+    }
+  },
+  mounted () { // 一般情况下接收都使用 生命周期钩子函数
+    bus.$on('count-event', (val) => { // 此处一定要注意this指向，可以使用 =>
+      console.log(val)
+      this.num += val
+    })
+  }
+}
+
+new Vue({
+  el: '#app',
+  components: {
+    'my-list': List,
+    'my-count': Count
+  }
+})
+</script>
+</html>

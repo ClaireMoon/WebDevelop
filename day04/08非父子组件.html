@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父子组件传值</title>
+</head>
+<body>
+  <div id="app">
+    <my-list></my-list>
+    <my-count></my-count>
+  </div>
+</body>
+<template id="list">
+  <ul>
+    <li>111<button @click="add">+1</button></li>
+    <li>222<button @click="add">+1</button></li>
+    <li>333<button @click="add">+1</button></li>
+    <li>444<button @click="add">+1</button></li>
+    <li>555<button @click="add">+1</button></li>
+  </ul>
+</template>
+<template id="count">
+  <div>
+    总量是：
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+const List = {
+  template: '#list',
+  methods: {
+    add () {
+
+    }
+  }
+}
+const Count = {
+  template: '#count'
+}
+
+new Vue({
+  el: '#app',
+  components: {
+    'my-list': List,
+    'my-count': Count
+  }
+})
+</script>
+</html>

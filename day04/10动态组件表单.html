@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父子组件传值</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="tem='my-a'">AAA</button>
+    <button @click="tem='my-b'">BBB</button>
+    <button @click="tem='my-c'">CCC</button>
+
+    <component :is="tem"></component>
+    <!-- <my-a></my-a>
+    <my-b></my-b>
+    <my-c></my-c> -->
+  </div>
+</body>
+<template id="acom">
+  <div>
+    <input type="text" placeholder="a组件">
+  </div>
+</template>
+<template id="bcom">
+  <div>
+    <input type="text" placeholder="b组件">
+  </div>
+</template>
+<template id="ccom">
+  <div>
+    <input type="text" placeholder="c组件">
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+const Acom = {
+  template: '#acom'
+}
+const Bcom = {
+  template: '#bcom'
+}
+const Ccom = {
+  template: '#ccom'
+}
+
+new Vue({
+  el: '#app',
+  data: {
+    tem: 'my-a'
+  },
+  components: {
+    'my-a': Acom,
+    'my-b': Bcom,
+    'my-c': Ccom
+  }
+})
+</script>
+</html>

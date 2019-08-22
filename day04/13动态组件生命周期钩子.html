@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父子组件传值</title>
+</head>
+<body>
+  <div id="app">
+    <button @click="tem='my-a'">AAA</button>
+    <button @click="tem='my-b'">BBB</button>
+    <button @click="tem='my-c'">CCC</button>
+    <keep-alive include="a,b">
+      <component :is="tem"></component>
+    </keep-alive>
+    
+  </div>
+</body>
+<template id="acom">
+  <div>
+    <input type="text" placeholder="a组件">
+  </div>
+</template>
+<template id="bcom">
+  <div>
+    <input type="text" placeholder="b组件">
+  </div>
+</template>
+<template id="ccom">
+  <div>
+    <input type="text" placeholder="c组件">
+  </div>
+</template>
+<script src="vue.js"></script>
+<script>
+  /**
+   * keep-alive 
+   *  保留组件的状态，避免组件的重新渲染  ---  类似于手机软件使用中按了home键之后应用程序的状态
+   *  添加include 可以 只给部分组件保留状态，需要定义组件时添加name属性
+   * 
+   * 每个组件都会有 两个生命周期钩子函数
+   *    activated()     正在用的
+   *    deactivated()   后台的
+   * */
+const Acom = {
+  name: 'a',
+  template: '#acom',
+  activated () {
+    console.log(' a 正在被使用')
+  },
+  deactivated () {
+    console.log(' a 被雪藏了')
+  }
+}
+const Bcom = {
+  name: 'b',
+  template: '#bcom',
+  activated () {
+    console.log(' b 正在被使用')
+  },
+  deactivated () {
+    console.log(' b 被雪藏了')
+  }
+}
+const Ccom = {
+  template: '#ccom',
+  activated () {
+    console.log(' c 正在被使用')
+  },
+  deactivated () {
+    console.log(' c 被雪藏了')
+  }
+}
+
+new Vue({
+  el: '#app',
+  data: {
+    tem: 'my-a'
+  },
+  components: {
+    'my-a': Acom,
+    'my-b': Bcom,
+    'my-c': Ccom
+  }
+})
+</script>
+</html>
