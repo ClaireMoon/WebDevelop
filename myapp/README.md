@@ -1,4 +1,4 @@
-# myapp
+# tmpapp
 
 ## Project setup
 ```
