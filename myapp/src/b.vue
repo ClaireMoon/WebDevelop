@@ -1,25 +1,27 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <div class="container">
+      <header class="header">头部</header>
+      <div class="content">内容</div>
+    </div>
     <footer class="footer">
       <ul>
-        <!-- router-link会被渲染成为a标签，如果不想改变，则使用tag标签生成目标标签 -->
-        <router-link to="/home" tag="li">
+        <li>
           <span class="iconfont icon-shouye"></span>
           <p>首页</p>
-        </router-link>
-        <router-link to="/kind" tag="li">
+        </li>
+        <li>
           <span class="iconfont icon-icon"></span>
           <p>分类</p>
-        </router-link>
-        <router-link to="/cart" tag="li">
+        </li>
+        <li>
           <span class="iconfont icon-tuanduicankaoxian-"></span>
           <p>购物车</p>
-        </router-link>
-        <router-link to="/user" tag="li">
+        </li>
+        <li>
           <span class="iconfont icon-wode"></span>
           <p>我的</p>
-        </router-link>
+        </li>
       </ul>
     </footer>
   </div>
@@ -79,10 +81,6 @@ html, body, #app {
         }
         p{
           @include font-size(0.12rem);
-        }
-
-        &.router-link-active{
-          @include color(#f66);
         }
       }
     }

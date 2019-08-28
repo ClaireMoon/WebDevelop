@@ -1,6 +1,6 @@
 {
-  "name": "tmpapp",
-  "short_name": "tmpapp",
+  "name": "myapp",
+  "short_name": "myapp",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
