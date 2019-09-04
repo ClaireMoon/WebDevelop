@@ -1145,23 +1145,18 @@
     color: $val
 }
 
-/**
 @mixin fixed() {
-    position:fixed 
+    position: fixed
 }
-
 @mixin top($top) {
-    top:top 
+    top: $top
 }
-
 @mixin right($right) {
-    right:right 
-}
-
-@mixin bottom($bottom) {
-    bottom:bottom 
+    right: $right
 }
 @mixin left($left) {
-    left:left 
+    left: $left
 }
-*/
+@mixin bottom($bottom) {
+    bottom: $bottom
+}

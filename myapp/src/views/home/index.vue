@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <header class="header">首页头部</header>
-    <div class="content" id="content">
-      <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <div class="content" id="content" ref="content">
+      <img src="../../assets/logo.png" alt="">
+      <van-pull-refresh v-model="isLoding" @refresh="onRefresh">
         <div class="banner">
           <van-swipe :autoplay="3000">
             <van-swipe-item v-for="(image, index) in images" :key="index">
@@ -15,7 +16,7 @@
         </van-list>
       </van-pull-refresh>
       <div class="backtop" @click="backtop">
-        <van-icon name="arrow-up" size="50px"/>
+        <van-icon name="upgrade" size="30px"/>
       </div>
     </div>
   </div>
@@ -24,22 +25,37 @@
 import Vue from 'vue'
 import { Swipe, SwipeItem, Lazyload, List, PullRefresh, Icon } from 'vant'
 import axios from 'axios'
-import Prolist from '@/components/Prolist'
-
+import test from '@/mixins/test'
 Vue.use(Swipe).use(SwipeItem)
 Vue.use(Lazyload)
 Vue.use(List)
 Vue.use(PullRefresh)
 Vue.use(Icon)
 export default {
+  mixins: [test],
+  beforeRouteLeave (to, from, next) {
+    const top = this.$refs.content.scrollTop
+    // const top = document.getElementById('content').scrollTop
+    localStorage.setItem('position', top)
+    next()
+  },
+  // activated () {
+  //   console.log('我回来了')
+  //   document.getElementById('content').scrollTop = localStorage.getItem('position')
+  // },
+  watch: {
+    $route (val) {
+      if (val.name === 'home') {
+        document.getElementById('content').scrollTop = localStorage.getItem('position')
+      }
+    }
+  },
   data () {
     return {
-      prolist: [],
-      images: [],
-      loading: false, // 表示上拉加载的状态 true表示正在加载
-      finished: false, // 表示所有的数据是否都加载完毕，true表示都加载完毕
       pageCode: 1, // 表示的是页码
-      isLoading: false // 表示下拉刷新是否在请求数据，true 代表正在请求数据
+      loading: false, // 表示上拉加载的状态 true表示正在加载
+      finished: false, // 表示所有的数据是否都加载完毕， true表示都加载完毕
+      isLoding: false // 表示下拉刷新是否在请求数据，true 代表正在请求数据
     }
   },
   methods: {
@@ -48,19 +64,19 @@ export default {
       axios.get('https://www.daxunxun.com/douban?count=20&start=' + this.pageCode * 20).then(res => {
         this.loading = false // 表示本次请求已经结束
         this.pageCode++ // 表示页码 +1
-        if (res.data.length === 0){
-          this.finished = true // 表示所有的数据都已经加载完毕了
+        if (res.data.length === 0) {
+          this.finished = true // 表示所有的数据都已加载完毕了
         } else {
-          // 之前的数据是this.prolist,新请求的数据是res.data，只要合并起来就是你想要的数据 ------ 数组的和合并
+          // 之前的数据是this.prolist, 新请求的数据是res.data，只要合并起来就是你想要的数据   ------ 数组的合并  concat
           this.prolist = [...this.prolist, ...res.data]
         }
       })
     },
     onRefresh () {
-      this.isLoading = true
+      this.isLoding = true
       axios.get('https://www.daxunxun.com/douban').then(res => {
         console.log(res.data)
-        this.isLoading = false
+        this.isLoding = false
         this.prolist = res.data // 直接请求前20条数据
         this.pageCode = 1 // 下拉刷新即为加载第一页数据----重置页码
         this.finished = false // 表示可以继续上拉加载
@@ -70,9 +86,6 @@ export default {
       document.getElementById('content').scrollTop = 0
     }
   },
-  components: {
-    prolist: Prolist
-  },
   mounted () {
     axios.get('https://www.daxunxun.com/douban').then(res => {
       console.log(res.data)
@@ -80,10 +93,6 @@ export default {
     })
     axios.get('https://www.daxunxun.com/banner').then(res => {
       // console.log(res.data)
-      /**
-       * ["/images/1.jpg"]
-       * ['http://wwww.daxunxun.com/images.1,jpg]
-       */
       let arr = []
       res.data.map(item => {
         arr.push('https://www.daxunxun.com' + item)
@@ -105,7 +114,6 @@ export default {
     height: 100%;
     img {
       width: 100%;
-      height: 100%;
       border: 1px solid #ccc;
     }
   }

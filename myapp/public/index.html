@@ -2,12 +2,81 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="referrer" content="no-referrer">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>myapp</title>
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1368073_nicq8h12urh.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1366330_jlh1gnd61g.css">
+    <script>
+      function uaredirect(f) {
+    try {
+        if (document.getElementById("bdmark") != null) {
+            return
+        }
+        var b = false;
+        if (arguments[1]) {
+            var e = window.location.host;
+            var a = window.location.href;
+            if (isSubdomain(arguments[1], e) == 1) {
+                f = f + "/#m/" + a;
+                b = true
+            } else {
+                if (isSubdomain(arguments[1], e) == 2) {
+                    f = f + "/#m/" + a;
+                    b = true
+                } else {
+                    f = a;
+                    b = false
+                }
+            }
+        } else {
+            b = true
+        }
+        if (b) {
+            var c = window.location.hash;
+            if (!c.match("fromapp")) {
+                if ((navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i))) {
+                    location.replace(f)
+                }
+            }
+        }
+    } catch(d) {}
+}
+function isSubdomain(c, d) {
+    this.getdomain = function(f) {
+        var e = f.indexOf("://");
+        if (e > 0) {
+            var h = f.substr(e + 3)
+        } else {
+            var h = f
+        }
+        var g = /^www\./;
+        if (g.test(h)) {
+            h = h.substr(4)
+        }
+        return h
+    };
+    if (c == d) {
+        return 1
+    } else {
+        var c = this.getdomain(c);
+        var b = this.getdomain(d);
+        if (c == b) {
+            return 1
+        } else {
+            c = c.replace(".", "\\.");
+            var a = new RegExp("\\." + c + "$");
+            if (b.match(a)) {
+                return 2
+            } else {
+                return 0
+            }
+        }
+    }
+};
+// uaredirect("https://m.taobao.com");
+    </script>
   </head>
   <body>
     <noscript>

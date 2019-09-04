@@ -2,8 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Footer from '@/components/Footer'
 Vue.use(Router)
-
-export default new Router({
+const router = new Router({
   // mode: 'history', // 没有#
   mode: 'hash', // 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。
   base: process.env.BASE_URL,
@@ -27,12 +26,29 @@ export default new Router({
       }
     },
     {
+      path: '/login',
+      name: 'login',
+      components: {
+        default: () => import('@/views/login/index.vue')
+      }
+    },
+    {
+      path: '/ele',
+      name: 'ele',
+      components: {
+        default: () => import('@/views/ele/index.vue')
+      }
+    },
+    {
       path: '/home',
       // alias: '/h',
       name: 'home',
       components: {
         default: () => import('@/views/home/index.vue'), // 路由懒加载
         footer: Footer
+      },
+      meta: {
+        keepAlive: true
       }
     },
     {
@@ -50,6 +66,14 @@ export default new Router({
         default: () => import('@/views/cart/index.vue'), // 路由懒加载
         footer: Footer
       }
+      // 路由独享的导航守卫 ---- 一般不推荐直接使用
+      // beforeEnter (to, from, next) {
+      //   if (localStorage.getItem('isLogin') === 'ok') {
+      //     next()
+      //   } else {
+      //     next('/login')
+      //   }
+      // }
     },
     {
       path: '/user',
@@ -59,10 +83,10 @@ export default new Router({
         footer: Footer
       },
       children: [
-        {
-          path: '',
-          redirect: 'nologin'
-        },
+        // {
+        //   path: '',
+        //   redirect: 'nologin'
+        // },
         {
           path: 'nologin', // 前面不要加/ ，你要的是 /user/nologin 加了就变成 /nologin
           name: 'nologin',
@@ -81,3 +105,22 @@ export default new Router({
     }
   ]
 })
+
+// 全局的导航守卫 --- 所有的路由都会先经过这里
+// router.beforeEach((to, from, next) => {
+//   // console.log(to)
+//   // console.log(from)
+//   // next()
+//   // 假设所有的页面都需要登陆 ------ 除了登陆路由
+//   if (to.name === 'login') {
+//     next()
+//   } else {
+//     if (localStorage.getItem('isLogin') === 'ok') {
+//       next()
+//     } else {
+//       next('/login')
+//     }
+//   }
+// })
+
+export default router

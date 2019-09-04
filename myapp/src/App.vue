@@ -2,7 +2,13 @@
   <div id="app">
     <!-- 命名视图 --- 多视图路由 -->
     <!-- 主视图 默认 name为default 但是可以不写 name="default"  -->
-    <router-view></router-view>
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <transition name="tra">
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </transition>
+    <!-- <router-view></router-view> -->
     <!-- 底部视图 起名为footer -->
     <router-view name="footer"></router-view>
   </div>
@@ -72,5 +78,23 @@ html, body, #app, .box {
       }
     }
   }
+}
+.tra-enter {
+  transform: translateX(100%);
+}
+.tra-enter-active {
+  transition: all 0.4s;
+}
+.tra-enter-to {
+  transform: translateX(0);
+}
+.tra-leave {
+  transform: translateX(0);
+}
+.tra-leave-active {
+
+}
+.tra-leave-to {
+  transform: translateX(-100%);
 }
 </style>
